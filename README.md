@@ -4,3 +4,5 @@ URule是一款由Bstek自主研发基于RETE算法的规则引擎产品，提供
 
 
 urule-sample地址如下：http://58.246.62.194:16808/urule-sample/
+
+URule规则引擎在线文档：http://wiki.bsdn.org/display/urule2/urule2+Home
