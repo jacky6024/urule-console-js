@@ -22,16 +22,18 @@ urule.MethodAction.prototype.initData=function(data){
 	this.name=data["beanLabel"];
 	this.method=data["methodName"];
 	this.methodLabel=data["methodLabel"];
-	URule.setDomContent(this.nameContainer,this.methodLabel+"(");
 	var parameters=data["parameters"];
 	this.parameterCount=0;
 	if(parameters){
 		this.parameterCount=parameters.length;
 	}
-	if(this.parameterCount==0){
-		var parameterLabel=$("<span style='color:gray'>无参数</span>");				
+	if(this.parameterCount===0){
+        URule.setDomContent(this.nameContainer,this.methodLabel);
+		var parameterLabel=$("<span style='color:gray'>(无参数)</span>");
 		this.container.append(parameterLabel);
-	}
+	}else{
+        URule.setDomContent(this.nameContainer,this.methodLabel+"(");
+    }
 	if(this.parameterCount==0){
 		return;
 	}

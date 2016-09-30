@@ -6,6 +6,7 @@ import {MsgBox} from 'flowdesigner';
 urule.LoopRule=function(parent,container,data){
 	this.uuid=Math.uuid();
 	this.namedMap=new Map();
+	this.namedReferenceValues=[];
 	container.prop('id',this.uuid);
 	this.parent=parent;
 	this.container=container;
@@ -418,7 +419,7 @@ urule.LoopRule.prototype.addAction=function(data,iselse){
 	var actionDiv=$("<div style='padding: 5px'>");
 	var del=$(`<i class="glyphicon glyphicon-remove rule-delete-action"></i>`);
 	actionDiv.append(del);
-	var action=new urule.ActionType(actionDiv);
+	var action=new urule.ActionType(actionDiv,this);
 	del.click(function(){
 		if(iselse){
 			var pos=self.elseActions.indexOf(action);
