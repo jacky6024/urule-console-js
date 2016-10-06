@@ -9,7 +9,7 @@ import * as action from '../action.js';
 import * as refEvent from '../../reference/event.js';
 import ReferenceDialog from '../../reference/ReferenceDialog.jsx';
 
-export default class ConstantEditor extends React.Component{
+class ConstantEditor extends React.Component{
     render(){
         const {dispatch,masterData,masterRowData,file}=this.props;
         const masterHeaders=[
