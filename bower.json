@@ -9,5 +9,9 @@
   "keywords": [
     "rule"
   ],
-  "homepage": "https://github.com/jacky6024/urule-console-js"
+  "homepage": "https://github.com/jacky6024/urule-console-js",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrapvalidator": "bootstrapValidator#^0.5.3"
+  }
 }
