@@ -109,7 +109,7 @@ urule.NamedReferenceValue.prototype.setValue=function(data){
 	this.propertyLabel=data["propertyLabel"] || data["variableLabel"];
 	this.datatype=data["datatype"];
 	URule.setDomContent(this.referenceNamelabel,this.referenceName+".");
-	URule.setDomContent(this.referencePropertylabel,this.propertyName);
+	URule.setDomContent(this.referencePropertylabel,this.propertyLabel);
 	window._setDirty();
 };
 urule.NamedReferenceValue.prototype.initData=function(data){
