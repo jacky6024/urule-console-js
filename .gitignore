@@ -1,4 +1,5 @@
 /bin
 /node_modules
 /bower_components
+/.idea
 /README.md
