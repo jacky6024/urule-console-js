@@ -1,0 +1,13 @@
+{
+  "name": "urule-console-js",
+  "description": "URule Console Javascript Project",
+  "main": "index.js",
+  "authors": [
+    "Jacky.Gao"
+  ],
+  "license": "GPL",
+  "keywords": [
+    "rule"
+  ],
+  "homepage": "https://github.com/jacky6024/urule-console-js"
+}
