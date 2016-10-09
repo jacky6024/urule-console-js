@@ -35,6 +35,7 @@ import '../common/FunctionProperty.js';
 import '../common/FunctionParameter.js';
 import '../common/FunctionValue.js';
 import '../common/SimpleValue.js';
+import '../urule/NamedReferenceValue.js';
 import './ConditionLeft.js';
 import '../urule/RuleProperty.js';
 
