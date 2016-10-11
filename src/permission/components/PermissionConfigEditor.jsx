@@ -95,7 +95,7 @@ class ResourceSecurityConfigEditor extends Component{
                                 </div>
                                 <div className="panel panel-default filePermissionConfig" style={{padding:'5px',margin:'5px',width:'350px',lineHeight:'30px'}}>
                                     <div className="row">
-                                        <div className="col-sm-7" style={{textAlign:'right'}}>是否允许查看资源包</div>
+                                        <div className="col-sm-7" style={{textAlign:'right'}}>是否允许查看知识包</div>
                                         <div className="col-sm-5">
                                             <label className="checkbox-inline">
                                                 <input type="radio" name="readPackage" value="true" onChange={this.permissionChange.bind(this,'readPackage',true)} defaultChecked="false"></input> 是
@@ -106,7 +106,7 @@ class ResourceSecurityConfigEditor extends Component{
                                         </div>
                                     </div>
                                     <div className="row writePackageConfig well" style={{padding:'0',marginBottom:'0'}}>
-                                        <div className="col-sm-7" style={{textAlign:'right'}}>是否允许修改资源包</div>
+                                        <div className="col-sm-7" style={{textAlign:'right'}}>是否允许修改知识包</div>
                                         <div className="col-sm-5">
                                             <label className="checkbox-inline">
                                                 <input type="radio" name="writePackage" value="true" onChange={this.permissionChange.bind(this,'writePackage',true)} defaultChecked="false"></input> 是
