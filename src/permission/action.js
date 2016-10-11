@@ -40,6 +40,7 @@ export function save(data) {
                 read-constant-file="${config.readConstantFile}" write-constant-file="${config.writeConstantFile}" 
                 read-action-file="${config.readActionFile}" write-action-file="${config.writeActionFile}" 
                 read-rule-file="${config.readRuleFile}" write-rule-file="${config.writeRuleFile}" 
+                read-scorecard-file="${config.readScorecardFile}" write-scorecard-file="${config.writeScorecardFile}" 
                 read-decision-table-file="${config.readDecisionTableFile}" write-decision-table-file="${config.writeDecisionTableFile}" 
                 read-decision-tree-file="${config.readDecisionTreeFile}" write-decision-tree-file="${config.writeDecisionTreeFile}" 
                 read-flow-file="${config.readFlowFile}" write-flow-file="${config.writeFlowFile}" 

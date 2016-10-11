@@ -26,6 +26,7 @@ class ResourceSecurityConfigEditor extends Component{
         resetDetail(data.readRuleFile,"RuleFile");
         resetDetail(data.readDecisionTableFile,"DecisionTableFile");
         resetDetail(data.readDecisionTreeFile,"DecisionTreeFile");
+        resetDetail(data.readScorecardFile,"ScorecardFile");
         resetDetail(data.readFlowFile,"FlowFile");
 
         function resetDetail(permission, name) {
@@ -280,6 +281,30 @@ class ResourceSecurityConfigEditor extends Component{
                                             </label>
                                             <label className="checkbox-inline">
                                                 <input type="radio" name="writeDecisionTreeFile" value="false" onChange={this.permissionChange.bind(this,'writeDecisionTreeFile',false)} defaultChecked="true"></input> 否
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="panel panel-default filePermissionConfig" style={{padding:'5px',margin:'5px',width:'350px',lineHeight:'30px'}}>
+                                    <div className="row">
+                                        <div className="col-sm-7" style={{textAlign:'right'}}>是否允许查看评分卡文件</div>
+                                        <div className="col-sm-5">
+                                            <label className="checkbox-inline">
+                                                <input type="radio" name="readScorecardFile" value="true" onChange={this.permissionChange.bind(this,'readScorecardFile',true)} defaultChecked="false"></input> 是
+                                            </label>
+                                            <label className="checkbox-inline">
+                                                <input type="radio" name="readScorecardFile" value="false" onChange={this.permissionChange.bind(this,'readScorecardFile',false)} defaultChecked="true"></input> 否
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div className="row writeScorecardFileConfig well" style={{padding:'0',marginBottom:'0'}}>
+                                        <div className="col-sm-7" style={{textAlign:'right'}}>是否允许修改评分卡文件</div>
+                                        <div className="col-sm-5">
+                                            <label className="checkbox-inline">
+                                                <input type="radio" name="writeScorecardFile" value="true" onChange={this.permissionChange.bind(this,'writeScorecardFile',true)} defaultChecked="false"></input> 是
+                                            </label>
+                                            <label className="checkbox-inline">
+                                                <input type="radio" name="writeScorecardFile" value="false" onChange={this.permissionChange.bind(this,'writeScorecardFile',false)} defaultChecked="true"></input> 否
                                             </label>
                                         </div>
                                     </div>
