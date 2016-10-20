@@ -9,6 +9,7 @@ export default class Row{
         this.scoreCardTable=table;
         this.cells=[];
     }
+
     newConditionCell(){
         let cellData=null;
         if(this.rowData){

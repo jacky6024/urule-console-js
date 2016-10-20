@@ -25,6 +25,23 @@ export default class AttributeRow extends Row{
             row.addCustomCol(customCol);
         }
     }
+
+    removeCustomCol(customCol){
+        let posArray=[];
+        for(let i=0;i<this.cells.length;i++){
+            let cell=this.cells[i];
+            if(cell.col===customCol){
+                posArray.push(i);
+            }
+        }
+        for(let pos of posArray){
+            this.cells.splice(pos,1);
+        }
+        for(let row of this.conditionRows){
+            row.removeCustomCol(customCol);
+        }
+    }
+
     initConditionRows(rowData){
         if(!rowData)return;
         const conditionRows=rowData.conditionRows || [];

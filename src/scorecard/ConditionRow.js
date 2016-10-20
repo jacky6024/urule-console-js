@@ -19,6 +19,20 @@ export default class ConditionRow extends Row{
         customCol.customCells.push(cell);
         this.tr.append(cell.td);
     }
+
+    removeCustomCol(customCol){
+        let posArray=[];
+        for(let i=0;i<this.cells.length;i++){
+            let cell=this.cells[i];
+            if(cell.col===customCol){
+                posArray.push(i);
+            }
+        }
+        for(let pos of posArray){
+            this.cells.splice(pos,1);
+        }
+    }
+
     remove(){
         this.attributeRow.removeConditionRow(this);
     }

@@ -30,6 +30,9 @@ export default class CustomCol extends Col{
         this.bindColResize();
     }
     remove(){
+        for(let row of this.scoreCardTable.attributeRows){
+            row.removeCustomCol(this);
+        }
         const pos=this.scoreCardTable.customCols.indexOf(this);
         this.scoreCardTable.customCols.splice(pos,1);
         for(let cell of this.customCells){
