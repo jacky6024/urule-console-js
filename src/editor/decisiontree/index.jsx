@@ -7,6 +7,7 @@ import '../../css/iconfont.css';
 import './decision-tree.css';
 import '../urule/ruleset.css';
 import '../Math.uuid.js';
+import '../../Remark.js';
 import '../common/contextMenu.js';
 import '../common/URule.js';
 import '../common/ComparisonOperator.js';

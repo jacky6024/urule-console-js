@@ -20,6 +20,7 @@ urule.Rule=function(parent,container,data){
 urule.Rule.prototype.init=function(){
 	this.ruleContainer=$("<div>");
 	this.container.append(this.ruleContainer);
+    this.initRemark();
 	this.initHeader();
 	this.initIf();
 	this.initThen();
@@ -67,6 +68,8 @@ urule.Rule.prototype.initData=function(){
 	if(ruleflowGroup){
 		this.addProperty(new urule.RuleProperty(this,"ruleflow-group",autoFocus,1));
 	}
+    var remark=this.data["remark"];
+    this.remark.setData(remark);
 	var lhs=this.data["lhs"];
 	if(lhs){
 		var criterion=lhs["criterion"];
@@ -124,6 +127,11 @@ urule.Rule.prototype.addProperty=function(property){
 	this.propertyContainer.append(property.getContainer());
 	this.properties.push(property);
 	window._setDirty();
+};
+urule.Rule.prototype.initRemark=function(){
+	var remarkContainer=$("<div></div>");
+    this.remark=new Remark(remarkContainer);
+    this.ruleContainer.append(remarkContainer);
 };
 urule.Rule.prototype.initHeader=function(){
 	this.nameContainer=$("<div></div>");
@@ -360,6 +368,7 @@ urule.Rule.prototype.toXml=function(){
 		xml+=" "+prop.toXml();
 	}
 	xml+=">";
+    xml+=this.remark.toXml();
 	xml+="<if>";
 	xml+=this.join.toXml();
 	xml+="</if>";

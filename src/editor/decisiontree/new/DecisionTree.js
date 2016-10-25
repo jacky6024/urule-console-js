@@ -10,6 +10,7 @@ export default class DecisionTree{
         this.container=container;
         this.properties=[];
         this.initToolbar();
+        this.initRemarkContainer();
         this.initPropertyContainer();
 
         var treeContainer=$("<div style='position: relative;text-align: center'>");
@@ -23,6 +24,11 @@ export default class DecisionTree{
             left:left,
             top:top
         });
+    }
+    initRemarkContainer(){
+        var remarkContainer=$("<div style='margin: 5px;'></div>");
+        this.container.append(remarkContainer);
+        this.remark=new Remark(remarkContainer);
     }
     initPropertyContainer(){
         var propContainer=$("<div style='margin: 5px;border: solid 1px #dddddd;border-radius:5px'></div>");
@@ -159,6 +165,7 @@ export default class DecisionTree{
                 xml+=" "+prop.toXml();
             }
             xml+=">";
+            xml+=self.remark.toXml();
             $.each(parameterLibraries,function(index,item){
                 xml+="<import-parameter-library path=\""+item+"\"/>";
             });
@@ -209,7 +216,7 @@ export default class DecisionTree{
                 },
                 success:function(data){
                     var treeData=data[0];
-
+                    self.remark.setData(treeData["remark"]);
                     var salience=treeData["salience"];
                     if(salience){
                         self.addProperty(new urule.RuleProperty(self,"salience",salience,1));

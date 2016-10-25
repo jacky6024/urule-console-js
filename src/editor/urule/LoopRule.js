@@ -22,6 +22,7 @@ urule.LoopRule=function(parent,container,data){
 urule.LoopRule.prototype.init=function(){
 	this.ruleContainer=$("<div>");
 	this.container.append(this.ruleContainer);
+	this.initRemark();
 	this.initHeader();
     this.initLoopTarget();
     this.initLoopStart();
@@ -72,6 +73,8 @@ urule.LoopRule.prototype.initData=function(){
 	if(ruleflowGroup){
 		this.addProperty(new urule.RuleProperty(this,"ruleflow-group",autoFocus,1));
 	}
+    var remark=this.data["remark"];
+    this.remark.setData(remark);
 
     var loopTarget=this.data["loopTarget"];
     if(loopTarget){
@@ -162,6 +165,13 @@ urule.LoopRule.prototype.addProperty=function(property){
 	this.properties.push(property);
 	window._setDirty();
 };
+
+urule.LoopRule.prototype.initRemark=function(){
+	var remarkContainer=$("<div></div>");
+	this.remark=new Remark(remarkContainer);
+	this.ruleContainer.append(remarkContainer);
+};
+
 urule.LoopRule.prototype.initHeader=function(){
 	this.nameContainer=$("<div></div>");
 	this.ruleContainer.append(this.nameContainer);
@@ -509,6 +519,7 @@ urule.LoopRule.prototype.toXml=function(){
 		xml+=" "+prop.toXml();
 	}
 	xml+=">";
+    xml+=this.remark.toXml();
     var loopTargetValue=this.loopTargetInputType.toXml();
     if(loopTargetValue===""){
         throw "循环规则的【循环对象】必须要定义";
