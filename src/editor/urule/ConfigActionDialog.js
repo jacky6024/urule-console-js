@@ -52,8 +52,8 @@ urule.ConfigActionDialog.prototype.init=function(){
 	this.dialogContent=$('<div>');
 	this.dialogContent.append(table);
 
-	for(var i=0;i<window.constantLibraries.length;i++){
-		const lib=window.constantLibraries[i];
+	for(var i=0;i<window.actionLibraries.length;i++){
+		const lib=window.actionLibraries[i];
 		this.tbody.append(this.newLibRow(lib));
 	}
 };
