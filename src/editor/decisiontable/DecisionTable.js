@@ -1211,7 +1211,26 @@ window._setDirty=function(){
 						self.renderSelection();
 					});
 				}
-			}];
+			}/*, {
+				label : "复制",
+				icon:"glyphicon glyphicon-copyright-mark",
+				name:"copy",
+				onClick:function(){
+					let cellData=self.getCurrentCellData();
+					window._tableCellContent=self.getCellContent(cellData);
+				}
+			}, {
+				label : "粘贴",
+				icon:"glyphicon glyphicon-registration-mark",
+				name:"paste",
+				onClick:function(){
+					if(!window._tableCellContent){
+						MsgBox.alert("请先复制目标单元格内容！");
+						return;
+					}
+
+				}
+			}*/];
 			
 			var onClick=function(menuItem){
 				var highlight=self.getHighlight(),
