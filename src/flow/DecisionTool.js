@@ -78,20 +78,20 @@ export default class DecisionTool extends BaseTool{
             conditionTable.append(tbody);
             index=0;
             for(let conn of this.fromConnections){
-                const item=this.decisionItems[index];
+                let decisionItem=this.decisionItems[index];
                 index++;
                 const tr=$('<tr></tr>');
                 tbody.append(tr);
                 const td=$('<td></td>');
                 tr.append(td);
                 const textGroup=$(`<div class="input-group"></div>`);
-                const scriptText=$(`<input type="text" class="form-control" value="${item.script || ''}">`);
+                const scriptText=$(`<input type="text" class="form-control" value="${decisionItem.script || ''}">`);
                 textGroup.append(scriptText);
                 const openEditorButton=$(`<span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button></span>`);
                 textGroup.append(openEditorButton);
                 openEditorButton.click(function(){
-                    const codeEditorContainer=$('<div></div>')
-                    const codeEditor=$(`<textarea>${item.script || ''}</textarea>`);
+                    const codeEditorContainer=$('<div></div>');
+                    const codeEditor=$(`<textarea>${decisionItem.script || ''}</textarea>`);
                     codeEditorContainer.append(codeEditor);
                     let codeMirror=null;
                     MsgBox.dialog('编辑脚本',codeEditorContainer,function(){
@@ -99,7 +99,7 @@ export default class DecisionTool extends BaseTool{
                             const scriptContent=codeMirror.getValue();
                             codeEditor.val(scriptContent);
                             scriptText.val(scriptContent);
-                            item.script=scriptContent;
+                            decisionItem.script=scriptContent;
                         }
                     });
                     setTimeout(function(){
@@ -132,11 +132,12 @@ export default class DecisionTool extends BaseTool{
                     pathSelect.append(`<option>${c.name ? c.name : ''}</option>`);
                 }
                 pathSelect.change(function(){
-                    item.to=$(this).val();
+                    decisionItem.to=$(this).val();
                 });
-                pathSelect.val(item.to || '');
+                pathSelect.val(decisionItem.to || '');
                 td1.append(pathSelect);
             }
+
             decisionTypeSelect.change(function(){
                 self.decisionItems.splice(0,self.decisionItems.length-1);
                 for(let conn of self.fromConnections){
