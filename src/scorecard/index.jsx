@@ -9,6 +9,7 @@ import '../editor/context.standalone.css';
 import '../editor/urule/ruleset.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '../Remark.js';
 import '../editor/common/jquery.utils.js';
 import '../editor/common/URule.js';
 import '../editor/common/contextMenu.js';

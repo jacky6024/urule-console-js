@@ -11,6 +11,7 @@ import '../common/jquery.utils.js';
 import '../common/contextMenu.js';
 import '../common/URule.js';
 import '../common/Context.js';
+import '../../Remark.js';
 import './RuleFactory.js';
 import './RuleProperty.js';
 import '../common/ComparisonOperator.js';

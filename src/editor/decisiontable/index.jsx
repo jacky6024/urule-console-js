@@ -11,6 +11,7 @@ import '../common/jquery.utils.js';
 import '../jquery.handsontable.full.js';
 import '../bootstrap-table.min.js';
 import '../Math.uuid.js';
+import '../../Remark.js';
 import '../common/URule.js';
 import '../common/contextMenu.js';
 import '../common/Context.js';

@@ -10,6 +10,9 @@ import ConditionCol from './ConditionCol.js';
 import ScoreCol from './ScoreCol.js';
 export default class ScoreCardTable{
     constructor(config){
+        var remarkContainer=$("<div></div>");
+        config.container.append(remarkContainer);
+        this.remark=new Remark(remarkContainer);
         this.weightSupport=false;
         const configContainer=$(`<div style="margin: 5px;"></div>`);
         this.weightSupportContainer=$(`<span style="padding: 8px;margin-right:5px;border:solid 1px #9E9E9E">权重:</span>`);
@@ -68,6 +71,7 @@ export default class ScoreCardTable{
             this.weightSupport=false;
             this.weightNonsupportOption.prop("checked",true);
         }
+        this.remark.setData(data["remark"]);
         this.propertyConfig.initData(data);
         this.tableAction.initData(data);
         const header=$(`<thead></thead>`);
@@ -150,6 +154,7 @@ export default class ScoreCardTable{
         }
         var xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
         xml+="<scorecard weight-support=\""+this.weightSupport+"\" "+this.propertyConfig.toXml()+this.attributeCol.toXml()+this.conditionCol.toXml()+this.scoreCol.toXml()+this.tableAction.toXml()+">";
+        xml+=this.remark.toXml();
         $.each(window.parameterLibraries,function(index,item){
             xml+="<import-parameter-library path=\""+item+"\"/>";
         });

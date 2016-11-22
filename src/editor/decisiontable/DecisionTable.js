@@ -51,9 +51,14 @@ window._setDirty=function(){
 		</nav>`;
 		
 		container.append(buttons);
+
+        const remarkContainer=$("<div style='margin:5px 5px 5px 15px'></div>");
+        container.append(remarkContainer);
+        this.remark=new Remark(remarkContainer);
+
 		this.properties=[];
 
-		var propContainer=$("<div style='margin: 5px;border: solid 1px #dddddd;border-radius:5px'></div>");
+		var propContainer=$("<div style='margin:5px 5px 5px 15px;border: solid 1px #dddddd;border-radius:5px'></div>");
 		container.append(propContainer);
 		this.propertyContainer=$("<span>");
 		this.propertyContainer.css({
@@ -913,6 +918,7 @@ window._setDirty=function(){
 				xml+=" "+prop.toXml();
 			}
 			xml+=">";
+            xml+=this.remark.toXml();
 			$.each(libraries,function(index,library){
 				var type=library.type,
 					path=library.path;
@@ -967,7 +973,7 @@ window._setDirty=function(){
 				},
 				success:function(data){
 					var decisionTable=data[0];
-
+                    self.remark.setData(decisionTable["remark"]);
 					var salience=decisionTable["salience"];
 					if(salience){
 						self.addProperty(new urule.RuleProperty(self,"salience",salience,1));

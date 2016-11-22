@@ -84,6 +84,10 @@ import {MsgBox} from 'flowdesigner';
 		});
 		$("#saveButton").addClass("disabled");
 		$("#saveButtonNewVersion").addClass("disabled");
+
+		var remarkContainer=$("<div style='margin: 5px;padding: 5px;'></div>");
+        this.append(remarkContainer);
+        this.remark=new Remark(remarkContainer);
 		
 		_loadRulesetFileData();
 
@@ -128,6 +132,7 @@ import {MsgBox} from 'flowdesigner';
 			$.each(actionLibraries,function(index,item){
 				xml+="<import-action-library path=\""+item+"\"/>";
 			});
+            xml+=self.remark.toXml();
 			try{
 				for(var i=0;i<self.rules.length;i++){
 					var rule=self.rules[i];
@@ -207,6 +212,7 @@ import {MsgBox} from 'flowdesigner';
 				success:function(data){
 					var ruleset=data[0];
 					var libraries=ruleset["libraries"];
+                    self.remark.setData(ruleset["remark"]);
 					if(libraries){
 						for(var i=0;i<libraries.length;i++){
 							var lib=libraries[i];
