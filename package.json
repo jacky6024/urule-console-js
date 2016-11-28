@@ -14,7 +14,7 @@
     "codemirror": "^5.17.0",
     "css": "^2.2.1",
     "events": "^1.1.0",
-    "flowdesigner": "^1.1.44",
+    "flowdesigner": "^1.1.45",
     "flux": "^2.1.1",
     "font-awesome": "^4.6.1",
     "jquery": "^2.2.3",

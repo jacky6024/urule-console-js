@@ -56,6 +56,7 @@ Remark.prototype.init=function (container) {
         icon.removeClass("glyphicon-circle-arrow-down");
         icon.addClass("glyphicon-circle-arrow-right");
     });
+    contentContainer.collapse('hide');
 };
 
 Remark.prototype.setData=function (data) {
