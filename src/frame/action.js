@@ -20,7 +20,7 @@ export function createNewFile(newFileName,fileType,parentNodeData){
         const path=parentNodeData.fullPath+"/"+fileName;
         $.ajax({
             url,
-            data:{path,type:fileType},
+            data:{path:encodeURI(parentNodeData.fullPath+"/"+fileName),type:fileType},
             type:'POST',
             success:function (newFileInfo) {
                 const newFileData={
@@ -63,7 +63,8 @@ export function rename(path, newPath) {
         const url=window._server+'/frame/fileRename';
         $.ajax({
             url,
-            data:{path,newPath,classify:window._classify,projectName:window._projectName,types:window._types},
+            type:'POST',
+            data:{path:path,newPath:newPath,classify:window._classify,projectName:window._projectName,types:window._types},
             success:function (data) {
                 const rootFile =data.repo.rootFile;
                 buildData(rootFile,1);
@@ -87,7 +88,8 @@ export function createNewProject(newProjectName,parentNodeData) {
         const url=window._server+'/frame/createProject';
         $.ajax({
             url,
-            data:{newProjectName},
+            type:'POST',
+            data:{newProjectName:newProjectName},
             success:function (newProjectData) {
                 buildData(newProjectData,1);
                 dispatch({type:CREATE_NEW_PROJECT,newProjectData,parentNodeData});
@@ -110,7 +112,8 @@ export function createNewFolder(newFolderName,parentNodeData) {
         const url=window._server+'/frame/createFolder';
         $.ajax({
             url,
-            data:{fullFolderName,classify:window._classify,projectName:window._projectName,types:window._types},
+            type:'POST',
+            data:{fullFolderName:fullFolderName,classify:window._classify,projectName:window._projectName,types:window._types},
             success:function (data) {
                 const rootFile =data.repo.rootFile;
                 buildData(rootFile,1);
@@ -210,6 +213,7 @@ export function loadData(classify,projectName,types) {
         const url=window._server+'/frame/loadProjects';
         $.ajax({
             url:url,
+            type:'POST',
             data:{classify,projectName,types},
             success:function (data) {
                 const {classify,repo}=data;
@@ -323,7 +327,7 @@ function buildData(data,level) {
                             if(!result){
                                 return;
                             }
-                            const url=window._server+'/frame/exportProjectBackupFile?path='+data.fullPath;
+                            const url=window._server+'/frame/exportProjectBackupFile?path='+encodeURI(data.fullPath);
                             window.open(url,'_blank');
                         });
                     }
@@ -351,7 +355,7 @@ function buildData(data,level) {
                     name:'配置接收推送客户端',
                     icon:'rf rf-operation',
                     click:function (data,dispatch) {
-                        const url=window._server+'/clientconfig?project='+data.name;
+                        const url=window._server+'/clientconfig?project='+encodeURI(data.name);
                         componentEvent.eventEmitter.emit(componentEvent.TREE_NODE_CLICK,{
                             id:'client_config_',
                             name:'推送客户端配置',
@@ -715,7 +719,7 @@ function buildFullContextMenu(isFolder,folderType){
             addPasteMenuItem=true;
         }
     }
-    if(!folderType || folderType==='scorecardLib'){
+    if(!folderType  || folderType==='all'|| folderType==='scorecardLib'){
         menus.push({
             name:'添加评分卡',
             icon:Styles.frameStyle.getScorecardIcon(),
@@ -896,6 +900,7 @@ export function seeFileSource(data) {
     var url=window._server+"/frame/fileSource";
     $.ajax({
         url,
+        type:'POST',
         data:{path:data.fullPath},
         success:function (result) {
             event.eventEmitter.emit(event.OPEN_SOURCE_DIALOG,data.fullPath,result.content);
@@ -914,6 +919,7 @@ function seeFileVersions(data) {
     var url=window._server+"/frame/fileVersions";
     $.ajax({
         url,
+        type:'POST',
         data:{path:data.fullPath},
         success:function (list) {
             event.eventEmitter.emit(event.OPEN_FILE_VERSION_DIALOG,{list,data});
@@ -934,6 +940,7 @@ function fileDelete(item, dispatch,isFolder) {
         var url=window._server+"/frame/deleteFile";
         $.ajax({
             url,
+            type:'POST',
             data:{isFolder,path:item.fullPath,classify:window._classify,projectName:window._projectName,types:window._types},
             success:function (data) {
                 if(!isFolder){

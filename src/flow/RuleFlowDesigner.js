@@ -77,6 +77,18 @@ export default class RuleFlowDesigner extends FlowDesigner{
                     break;
             }
         }
+        if(this.importVariableLibraries.length>0){
+            this._refreshLibraries(this.importVariableLibraries,"vl.xml");
+        }
+        if(this.importConstantLibraries.length>0){
+            this._refreshLibraries(this.importConstantLibraries,"cl.xml");
+        }
+        if(this.importActionLibraries.length>0){
+            this._refreshLibraries(this.importActionLibraries,"al.xml");
+        }
+        if(this.importParameterLibraries.length>0){
+            this._refreshLibraries(this.importParameterLibraries,"pl.xml");
+        }
         for(let nodeJson of json.nodes){
             nodeJson.w=nodeJson.width;
             nodeJson.h=nodeJson.height;
@@ -181,99 +193,13 @@ export default class RuleFlowDesigner extends FlowDesigner{
                             const pos=importLibs.indexOf(fullFileName);
                             importLibs.splice(pos,1);
                             newRow.remove();
-                            _refreshLibraries(importLibs,extName);
+                            _this._refreshLibraries(importLibs,extName);
                         });
                         tbody.append(newRow);
-                        _refreshLibraries(importLibs,extName);
+                        _this._refreshLibraries(importLibs,extName);
                     }
                 });
             });
-
-            function _refreshLibraries(importLibs,extName) {
-                if(importLibs.length===0){
-                    return;
-                }
-                let libs=null;
-                loadLibraries(importLibs,function (result) {
-                    if(extName==='vl.xml'){
-                        libs=_this.variableLibraries;
-                        libs.splice(0,libs.length);
-                        for(let category of result){
-                            libs.push(...category);
-                        }
-                    }else if(extName==='cl.xml'){
-                        libs=_this.constantLibraries;
-                        libs.splice(0,libs.length);
-                        for(let category of result){
-                            libs.push(...category.categories);
-                        }
-                    }else if(extName==='pl.xml'){
-                        libs=_this.variableLibraries;
-                        let paramCategory,param1Category;
-                        for(let category of libs){
-                            if(category.name==='参数'){
-                                paramCategory=category;
-                            }
-                            if(category.name==='parameter'){
-                                param1Category=category;
-                            }
-                        }
-                        if(!paramCategory){
-                            paramCategory={
-                                type:'variable',
-                                name:'参数'
-                            };
-                            libs.push(paramCategory);
-                        }
-                        if(!param1Category){
-                            param1Category={
-                                type:'variable',
-                                name:'parameter'
-                            };
-                            libs.push(param1Category);
-                        }
-                        paramCategory.variables=result[0];
-                        param1Category.variables=result[0];
-                    }else if(extName==='al.xml'){
-                        importLibs=_this.importActionLibraries;
-                        libs=_this.actionLibraries;
-                        libs.splice(0,libs.length);
-                        libs.push(...result);
-                    }
-                    Event.eventEmitter.emit(CONSTANTS.LIB_CHANGE,{
-                        actionLibraries:_this.actionLibraries,
-                        constantCategories:_this.constantLibraries,
-                        parameterLibraries:_this.parameterLibraries,
-                        variableCategories:_this.variableLibraries
-                    });
-                });
-            };
-
-            function loadLibraries(importLibs,callback){
-                let files="";
-                for(var i=0;i<importLibs.length;i++){
-                    const libFile=importLibs[i];
-                    if(i==0){
-                        files=libFile;
-                    }else{
-                        files+=";"+libFile;
-                    }
-                }
-                if(files.length<2){
-                    return;
-                }
-                var url=window._server+"/common/loadXml?files="+encodeURI(files)+";";
-                $.ajax({
-                    url,
-                    error:function(req,error){
-                        alert("加载文件["+files+"]失败！");
-                    },
-                    success:function(data){
-                        callback(data);
-                    }
-                });
-            };
-
             const table=$('<table class="table table-bordered" style="table-layout: fixed">');
             const thead=$(`<thead>
                 <tr>
@@ -308,7 +234,7 @@ export default class RuleFlowDesigner extends FlowDesigner{
                         const pos=libraries.indexOf(lib);
                         libraries.splice(pos,1);
                         newRow.remove();
-                        _refreshLibraries(libraries,extName);
+                        _this._refreshLibraries(libraries,extName);
                     });
                     tbody.append(newRow);
                 }
@@ -323,4 +249,92 @@ export default class RuleFlowDesigner extends FlowDesigner{
             return g;
         }
     }
+
+    _refreshLibraries(importLibs,extName) {
+        if(importLibs.length===0){
+            return;
+        }
+        let libs=null;
+        const _this=this;
+        this._loadLibraries(importLibs,function (result) {
+            if(extName==='vl.xml'){
+                libs=_this.variableLibraries;
+                libs.splice(0,libs.length);
+                for(let category of result){
+                    libs.push(...category);
+                }
+            }else if(extName==='cl.xml'){
+                libs=_this.constantLibraries;
+                libs.splice(0,libs.length);
+                for(let category of result){
+                    libs.push(...category.categories);
+                }
+            }else if(extName==='pl.xml'){
+                libs=_this.variableLibraries;
+                let paramCategory,param1Category;
+                for(let category of libs){
+                    if(category.name==='参数'){
+                        paramCategory=category;
+                    }
+                    if(category.name==='parameter'){
+                        param1Category=category;
+                    }
+                }
+                if(!paramCategory){
+                    paramCategory={
+                        type:'variable',
+                        name:'参数'
+                    };
+                    libs.push(paramCategory);
+                }
+                if(!param1Category){
+                    param1Category={
+                        type:'variable',
+                        name:'parameter'
+                    };
+                    libs.push(param1Category);
+                }
+                paramCategory.variables=result[0];
+                param1Category.variables=result[0];
+            }else if(extName==='al.xml'){
+                importLibs=_this.importActionLibraries;
+                libs=_this.actionLibraries;
+                libs.splice(0,libs.length);
+                libs.push(...result);
+            }
+            Event.eventEmitter.emit(CONSTANTS.LIB_CHANGE,{
+                actionLibraries:_this.actionLibraries,
+                constantCategories:_this.constantLibraries,
+                parameterLibraries:_this.parameterLibraries,
+                variableCategories:_this.variableLibraries
+            });
+        });
+    };
+
+    _loadLibraries(importLibs,callback){
+        let files="";
+        for(var i=0;i<importLibs.length;i++){
+            const libFile=importLibs[i];
+            if(i==0){
+                files=libFile;
+            }else{
+                files+=";"+libFile;
+            }
+        }
+        if(files.length<2){
+            return;
+        }
+        var url=window._server+"/common/loadXml";
+        $.ajax({
+            url,
+            data:{files},
+            type:'POST',
+            error:function(req,error){
+                alert("加载文件["+files+"]失败！");
+            },
+            success:function(data){
+                callback(data);
+            }
+        });
+    };
 }

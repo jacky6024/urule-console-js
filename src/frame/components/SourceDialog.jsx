@@ -23,7 +23,7 @@ export default class SourceDialog extends Component{
         });
         event.eventEmitter.on(event.OPEN_SOURCE_DIALOG,(file,content)=>{
             $(ReactDOM.findDOMNode(this)).modal('show');
-            this.setState({file,codeMirror,title:`${file}文件源码`});
+            this.setState({file,codeMirror,title:`[${file}]源码`});
             setTimeout(function () {
                 const winHeight=$(window).height();
                 const height=winHeight > 800 ? winHeight-160 : winHeight ;

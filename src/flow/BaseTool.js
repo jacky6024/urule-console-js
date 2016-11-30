@@ -25,6 +25,7 @@ export default class BaseTool extends Tool{
             $.ajax({
                 url,
                 data:{type,content:text},
+                type:'POST',
                 success:function(result){
                     if(result){
                         for(let item of result){

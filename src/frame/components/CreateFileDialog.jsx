@@ -42,8 +42,8 @@ export default class CreateFileDialog extends Component{
                             message: '文件名不能为空'
                         },
                         regexp: {
-                            regexp: "^(?!_)(?!-)[0-9a-zA-Z_-]{1,}$",
-                            message: '名称只能包含英文字母、数字、下划线、中划线,且不能以下划线、中划线开头'
+                            regexp: "^(?!_)(?!-)[\u4e00-\u9fa5_a-zA-Z0-9_-]{1,}$",
+                            message: '名称只能包含中文及英文字母、数字、下划线、中划线,且不能以下划线、中划线开头'
                         },
                         remote:{
                             message:'文件名已存在',

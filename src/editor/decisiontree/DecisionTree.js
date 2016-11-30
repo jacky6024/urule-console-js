@@ -139,6 +139,7 @@ DecisionTree.prototype.initToolbar=function(){
         $.ajax({
             cache:false,
             dataType:"json",
+            type:'POST',
             url:url,
             error:function(req,error){
                 URule.alert("加载文件失败！");

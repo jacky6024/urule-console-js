@@ -24,8 +24,9 @@ export default class IFrame extends Component{
         });
     }
     render(){
+        const path=encodeURI(encodeURI(this.props.path));
         return (
-            <iframe src={this.props.path} style={{width:'100%',border:0}} frameBorder="none"></iframe>
+            <iframe src={path} style={{width:'100%',border:0}} frameBorder="none"></iframe>
         );
     }
 }

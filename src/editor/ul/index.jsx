@@ -58,6 +58,7 @@ function buildScriptLintFunction(type){
         const url=window._server+'/common/scriptValidation';
         $.ajax({
             url,
+            type:'POST',
             data:{type,content:text},
             success:function(result){
                 if(result){

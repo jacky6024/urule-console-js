@@ -85,7 +85,7 @@ export default class DecisionTool extends BaseTool{
                 const td=$('<td></td>');
                 tr.append(td);
                 const textGroup=$(`<div class="input-group"></div>`);
-                const scriptText=$(`<input type="text" class="form-control" value="${decisionItem.script || ''}">`);
+                const scriptText=$(`<input type="text" class="form-control" style="font-size: 12px" value="${decisionItem.script || ''}">`);
                 textGroup.append(scriptText);
                 const openEditorButton=$(`<span class="input-group-btn"><button type="button" class="btn btn-default"><i class="glyphicon glyphicon-edit"></i></button></span>`);
                 textGroup.append(openEditorButton);
@@ -127,7 +127,7 @@ export default class DecisionTool extends BaseTool{
 
                 const td1=$("<td></td>");
                 tr.append(td1);
-                const pathSelect=$(`<select class="form-control"></select>`);
+                const pathSelect=$(`<select class="form-control" style="font-size: 12px"></select>`);
                 for(let c of this.fromConnections){
                     pathSelect.append(`<option>${c.name ? c.name : ''}</option>`);
                 }

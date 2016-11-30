@@ -11,14 +11,17 @@ import CommonDialog from '../../components/dialog/component/CommonDialog.jsx';
 export default class RenameDialog extends Component{
     constructor(props){
         super(props);
-        this.state={name:''};
+        this.state={name:'',fileName:''};
     }
     componentDidMount(){
         event.eventEmitter.on(event.SHOW_RENAME_DIALOG,data=>{
             $(ReactDOM.findDOMNode(this)).modal('show');
             const fullPath=data.fullPath,name=data.name,pos=fullPath.lastIndexOf('/');
             const parentPath=fullPath.substring(0,pos);
-            this.setState({name,parentPath,fullPath});
+            const pointPOS=name.indexOf(".");
+            const fileName = (pointPOS ===-1 ? name : name.substring(0,pointPOS));
+            const extName = (pointPOS ===-1 ? '' : name.substring(pointPOS,name.length));
+            this.setState({name,fileName,extName,parentPath,fullPath});
         });
         event.eventEmitter.on(event.HIDE_RENAME_DIALOG,()=>{
             $(ReactDOM.findDOMNode(this)).modal('hide');
@@ -37,8 +40,8 @@ export default class RenameDialog extends Component{
                             message: '文件名不能为空'
                         },
                         regexp: {
-                            regexp: "^(?!_)(?!-)[0-9a-zA-Z_-](\.){1,}$",
-                            message: '名称只能包含英文字母、数字、下划线、中划线,且不能以下划线、中划线开头'
+                            regexp: "^(?!_)(?!-)[\u4e00-\u9fa5_a-zA-Z0-9_-]{1,}$",
+                            message: '名称只能包含中文及英文字母、数字、下划线、中划线,且不能以下划线、中划线开头'
                         },
                         remote:{
                             message:'文件名已存在',
@@ -68,7 +71,7 @@ export default class RenameDialog extends Component{
                     return;
                 }
                 const {parentPath,fullPath}=this.state;
-                const newName=parentPath+'/'+this.state.name;
+                const newName=parentPath+'/'+this.state.fileName+this.state.extName;
                 componentEvent.eventEmitter.emit(componentEvent.SHOW_LOADING);
                 setTimeout(function () {
                     dispatch(action.rename(fullPath,newName));
@@ -78,8 +81,8 @@ export default class RenameDialog extends Component{
         const body=(
             <div className="form-group">
                 <label>名称</label>
-                <input type="text" className="form-control" name="newFileNameForRename" value={this.state.name} onChange={function(e) {
-                    this.setState({name:e.target.value});
+                <input type="text" className="form-control" name="newFileNameForRename" value={this.state.fileName} onChange={function(e) {
+                    this.setState({fileName:e.target.value});
                 }.bind(this)}></input>
             </div>
         );

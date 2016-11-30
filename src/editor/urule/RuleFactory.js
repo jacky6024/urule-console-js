@@ -205,6 +205,7 @@ import {MsgBox} from 'flowdesigner';
 			var url=window._server+'/common/loadXml';
 			$.ajax({
 				url:url,
+				type:'POST',
 				data:{files:file},
 				error:function(req,error){
 					MsgBox.alert("加载文件失败！");

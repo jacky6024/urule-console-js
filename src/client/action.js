@@ -9,6 +9,7 @@ export function loadData(project) {
     return function (dispatch) {
         $.ajax({
             url:window._server+'/clientconfig/loadData?project='+project,
+            type:'POST',
             success:function (data) {
                 dispatch({type:LOADED_DATA,data});
             },
@@ -38,6 +39,7 @@ export function save(data,project) {
     xml+="</client-config>";
     $.ajax({
         url:window._server+'/clientconfig/save',
+        type:'POST',
         data:{project,content:xml},
         success:function () {
             bootbox.alert('保存成功!');

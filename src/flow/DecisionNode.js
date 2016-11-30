@@ -39,17 +39,24 @@ export default class DecisionNode extends BaseNode{
     validate(){
         let errorInfo=super.validate();
         if(errorInfo)return errorInfo;
-        if(!this.decisionType){
+        if(!this.decisionType || this.decisionType===''){
             errorInfo=`节点${this.name}的决策类型属性不能为空`;
             return errorInfo;
         }
-        if(this.decisionItems.length<2){
-            errorInfo=`节点${this.name}的具体的决策项不能少于两个`;
+        if(this.decisionItems.length<1){
+            errorInfo=`节点${this.name}的具体的决策项不能少于一个`;
         }
         for(let item of this.decisionItems){
-            if(!item.connection || item.connection==='' || !item.content || item.content===''){
-                errorInfo=`节点${this.name}的决策项未配置`;
-                return;
+            if(this.decisionType==='Percent'){
+                if(!item.to || item.to==='' || !item.percent || item.percent===''){
+                    errorInfo=`节点${this.name}的决策项未正确配置`;
+                    break;
+                }
+            }else{
+                if(!item.to || item.to==='' || !item.script || item.script===''){
+                    errorInfo=`节点${this.name}的决策项未正确配置`;
+                    break;
+                }
             }
         }
         return errorInfo;
