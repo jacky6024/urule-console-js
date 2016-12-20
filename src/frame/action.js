@@ -205,7 +205,7 @@ export function update(index, data) {
     return {index,data,type:UPDATE};
 };
 
-export function loadData(classify,projectName,types) {
+export function loadData(classify,projectName,types,searchFileName) {
     if(classify===null || classify==='undefined'){
         classify=true;
     }
@@ -214,7 +214,7 @@ export function loadData(classify,projectName,types) {
         $.ajax({
             url:url,
             type:'POST',
-            data:{classify,projectName,types},
+            data:{classify,projectName,types,searchFileName},
             success:function (data) {
                 const {classify,repo}=data;
                 const {rootFile,projectNames} = repo;

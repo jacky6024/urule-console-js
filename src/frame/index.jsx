@@ -57,7 +57,7 @@ $(document).ready(function () {
                 window._projectName=name;
                 componentEvent.eventEmitter.emit(componentEvent.SHOW_LOADING);
                 setTimeout(function() {
-                    store.dispatch(ACTIONS.loadData(window._classify,name,window._types));
+                    store.dispatch(ACTIONS.loadData(window._classify,window._projectName,window._types,window.searchFileName));
                     event.eventEmitter.emit(event.PROJECT_FILTER_CHANGE,name);
                     componentEvent.eventEmitter.emit(componentEvent.HIDE_LOADING);
                 },200);
@@ -75,6 +75,11 @@ $(document).ready(function () {
         li.find('a').css('margin-left','0px');
         li.find('i').addClass('rf rf-check');
     });
+    function searchFile(){
+        const searchFileName=$('.fileSearchText').val();
+        window.searchFileName=searchFileName;
+        store.dispatch(ACTIONS.loadData(window._classify,window._projectName,window._types,window.searchFileName));
+    }
     ReactDOM.render(
         <div >
             <Loading show={true}/>
@@ -220,9 +225,12 @@ $(document).ready(function () {
                                     </li>
                                 </ul>
                             </span>
-
                         </div>
                         <div className='tree' style={{marginLeft:'10px'}}>
+                            <div style={{margin:'10px 0px 5px 2px'}}>
+                                <input type="text" className="form-control fileSearchText" placeholder="输入要查询的文件名..." style={{display:'inline-block',width:'170px'}}></input>
+                                <a href="###" onClick={searchFile} style={{margin:'6px',fontSize:'16px'}}><i className="glyphicon glyphicon-search"></i></a>
+                            </div>
                             <Tree draggable={true}/>
                         </div>
                     </div>

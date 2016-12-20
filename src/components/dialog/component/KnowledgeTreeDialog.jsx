@@ -34,13 +34,12 @@ export default class KnowledgeTreeDialog extends Component {
             this.currentNodeData=nodeData;
         });
     }
-    search(event){
+    search(){
         const searchFileName=$('.resSearchText').val();
         const config=this._config;
         action.loadResourceTreeData({project:config.project,forLib:config.forLib,fileType:config.fileType,searchFileName},function(data){
             this.setState({data,fileType:config.fileType});
         }.bind(this));
-
     }
     componentWillUnmount(){
         event.eventEmitter.removeAllListeners(event.OPEN_KNOWLEDGE_TREE_DIALOG);
